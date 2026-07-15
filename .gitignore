@@ -1,0 +1,63 @@
+# FakeGuard AI — Production .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Large model files (too big for Git — regenerate with trainer.py)
+models/saved/legacy/rf_model.pkl
+rf_model.pkl
+*.pkl
+
+# Keep the new compressed pipeline
+!models/saved/pipeline.joblib
+
+# Data files (large)
+data/fake reviews dataset.csv
+fake reviews dataset.csv
+
+# Environment
+.env
+.env.local
+secrets.toml
+.streamlit/secrets.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Temp files
+read_notebook.py
+
+# Distribution
+*.whl
+*.tar.gz
