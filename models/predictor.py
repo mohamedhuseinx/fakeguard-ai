@@ -169,59 +169,6 @@ class ReviewPredictor:
             })
         return results
 
-    # ── SHAP Explanations ───────────────────────────────────────────────────────
-
-    def explain_shap(self, text: str, max_features: int = 15) -> Optional[Dict]:
-        """
-        Generate SHAP feature importance for a single prediction.
-
-        Parameters
-        ----------
-        text : str
-            Raw review text.
-        max_features : int
-            Number of top contributing features to return.
-
-        Returns
-        -------
-        dict or None
-            {feature_names: [...], shap_values: [...], base_value: float}
-            Returns None if SHAP is unavailable.
-        """
-        try:
-            import shap
-
-            clean = transform_text(text)
-            tfidf = self.pipeline.named_steps["tfidf"]
-            clf = self.pipeline.named_steps["classifier"]
-
-            vec = tfidf.transform([clean])
-            feature_names = np.array(tfidf.get_feature_names_out())
-
-            # Use LinearExplainer for linear models
-            explainer = shap.LinearExplainer(clf, shap.maskers.Independent(vec))
-            shap_values = explainer.shap_values(vec)
-
-            if isinstance(shap_values, list):
-                sv = shap_values[1][0]  # class 1 (Real)
-            else:
-                sv = shap_values[0]
-
-            # Get top features
-            abs_sv = np.abs(sv)
-            top_idx = np.argsort(abs_sv)[::-1][:max_features]
-
-            return {
-                "feature_names": feature_names[top_idx].tolist(),
-                "shap_values": sv[top_idx].tolist(),
-                "base_value": float(explainer.expected_value
-                                    if not isinstance(explainer.expected_value, np.ndarray)
-                                    else explainer.expected_value[1]),
-            }
-        except Exception as e:
-            logger.warning(f"SHAP explanation failed: {e}")
-            return None
-
     def get_feature_importance(self, top_n: int = 20) -> pd.DataFrame:
         """
         Extract TF-IDF feature importance from the trained classifier.

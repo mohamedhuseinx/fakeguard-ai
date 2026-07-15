@@ -28,7 +28,7 @@ with st.sidebar:
     st.markdown(f"*v{APP_VERSION}*")
     st.divider()
     st.markdown("**Prediction Mode**")
-    mode = st.radio("", ["Single Review", "Batch (CSV Upload)"], label_visibility="collapsed")
+    mode = st.radio("Prediction Mode", ["Single Review", "Batch (CSV Upload)"], label_visibility="collapsed")
     st.divider()
     st.markdown("**Example reviews:**")
     examples = {
