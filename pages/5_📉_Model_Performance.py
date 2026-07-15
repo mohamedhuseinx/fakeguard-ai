@@ -162,8 +162,12 @@ with tab3:
         # Approximate TPR from AUC using a simple power law
         power = 1 / (auc_val / (1 - auc_val) + 0.001) if auc_val < 1 else 0.01
         tpr_approx = 1 - (1 - t) ** (1 / max(power, 0.01))
+        # Simple trapezoidal integration helper (np.trapz was removed in NumPy 2.0)
+        def _trapz(y, x):
+            return np.sum((y[1:] + y[:-1]) * np.diff(x)) / 2.0
+
         # Normalize so area under curve ≈ auc_val
-        tpr_approx = np.clip(tpr_approx * (auc_val / (np.trapz(tpr_approx, fpr_approx) or 1)), 0, 1)
+        tpr_approx = np.clip(tpr_approx * (auc_val / (_trapz(tpr_approx, fpr_approx) or 1)), 0, 1)
 
         col_roc, col_pr = st.columns(2)
         with col_roc:
