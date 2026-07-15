@@ -21,17 +21,8 @@ ENV/
 .ipynb_checkpoints/
 *.ipynb
 
-# Large model files (too big for Git — regenerate with trainer.py)
-models/saved/legacy/rf_model.pkl
-rf_model.pkl
-*.pkl
-
 # Keep the new compressed pipeline
 !models/saved/pipeline.joblib
-
-# Data files (large)
-data/fake reviews dataset.csv
-fake reviews dataset.csv
 
 # Environment
 .env
