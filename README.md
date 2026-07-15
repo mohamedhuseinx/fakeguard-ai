@@ -11,7 +11,7 @@
 
 **Advanced NLP-powered fake review detection with a premium SaaS-grade dashboard.**
 
-[🚀 Live Demo](#) · [📖 Documentation](#architecture) · [🐛 Report Bug](../../issues)
+[🚀 Live Demo](https://fakeguard-ai.streamlit.app/) · [📖 Documentation](#architecture) · [🐛 Report Bug](../../issues)
 
 </div>
 
